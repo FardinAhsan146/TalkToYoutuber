@@ -33,3 +33,5 @@ def get_videos(channel_name: str, connection = create_connection()) -> List[str]
         insert_initial_row(connection, channel_name, video_id, video_title)
 
     print(f"Finished fetching video details for channel '{channel_name}'.")
+
+    

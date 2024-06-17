@@ -69,6 +69,7 @@ def insert_initial_row(conn: Connection, channel_name: str, video_id: str, video
 
 def update_video_transcript(conn: Connection, video_id: str, video_transcript: str) -> None:
     """Update the video_transcript of the row that matches the given video_id."""
+    from sqlite3 import Error
     update_sql = '''
     UPDATE video_contents 
     SET video_transcript = ? 
@@ -77,18 +78,23 @@ def update_video_transcript(conn: Connection, video_id: str, video_transcript: s
     try:
         cursor = conn.cursor()
 
-        # Check if the video_id exists before updating
-        cursor.execute('SELECT 1 FROM video_contents WHERE video_id = ? LIMIT 1;', (video_id,))
-        exists = cursor.fetchone()
+        # Check if the video_id exists and if a transcript already exists
+        cursor.execute('SELECT video_transcript FROM video_contents WHERE video_id = ? LIMIT 1;', (video_id,))
+        result = cursor.fetchone()
         
-        if exists:
-            # Proceed with the update
+        if result:
+            existing_transcript = result[0]
+            if existing_transcript is not None:
+                print(f"A transcript already exists for video ID '{video_id}'. No update made.")
+                return
+            
+            # Proceed with the update as no transcript exists
             cursor.execute(update_sql, (video_transcript, video_id))
             conn.commit()
             print("Video transcript updated in 'video_contents'.")
         else:
             print(f"Video ID '{video_id}' does not exist. No update made.")
-    except sqlite3.Error as e:
+    except Error as e:
         print(e)
 
 def get_videos_by_channel(conn: Connection, channel_name: str) -> Optional[list]:
