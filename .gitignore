@@ -2,6 +2,6 @@
 **/**.sqlite
 **/**.ipynb 
 __pycache__/
-chroma/*  # Ignore everything in the chroma directory
-!chroma/*.py # Except .py files inside the chroma directory
+chroma/**  # Ignore everything in the chroma directory
+!.py # Except .py files inside the chroma directory
  
