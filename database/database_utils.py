@@ -63,7 +63,6 @@ def insert_initial_row(conn: Connection, channel_name: str, video_id: str, video
             # Proceed with insertion
             cursor.execute(insert_sql, (channel_name, video_id, video_title))
             conn.commit()
-            print(f"Video title: '{video_title}' inserted into 'video_contents'.")
     except sqlite3.Error as e:
         print(e)
 
@@ -85,13 +84,11 @@ def update_video_transcript(conn: Connection, video_id: str, video_transcript: s
         if result:
             existing_transcript = result[0]
             if existing_transcript is not None:
-                print(f"A transcript already exists for video ID '{video_id}'. No update made.")
                 return
             
             # Proceed with the update as no transcript exists
             cursor.execute(update_sql, (video_transcript, video_id))
             conn.commit()
-            print("Video transcript updated in 'video_contents'.")
         else:
             print(f"Video ID '{video_id}' does not exist. No update made.")
     except Error as e:
@@ -137,5 +134,5 @@ if __name__ == '__main__':
 
     #     # Close the database connection
     #     conn.close()
-        pass 
+    pass 
 

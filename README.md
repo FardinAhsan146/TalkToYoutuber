@@ -33,3 +33,8 @@ This project is designed to be maximally portable and easy to run.
 3. Run the `main.py` file. That's it really. 
 
 More instructions coming soon.
+
+# Future
+
+* I want to refactor the code and make it database, api and interface agnostic for the most part. 
+* I want to add in fuzz and regression testing.

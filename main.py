@@ -14,7 +14,7 @@ if __name__ == '__main__':
     print(f"Downloading data for {youtuber}...")
 
     # Make the SQLITE table connection 
-    conn = database_utils.create_connection()
+    conn = database_utils.create_connection(db_name = './database/talk_to_youtuber_db.sqlite')
 
     # create the videos table 
     database_utils.create_table(conn)
@@ -25,11 +25,5 @@ if __name__ == '__main__':
     # # Download all their transcripts 
     all_videos = database_utils.get_videos_by_channel(conn, channel_name = youtuber)
 
-    print(all_videos)
-    for video in tqdm(all_videos):
-        try:
-            video_id = video[1]
-            transcript = get_video_transcript.get_video_transcript(video_id)
-        except KeyboardInterrupt:
-            print("You stopped the process")
-            break
+    # Write in transcripts 
+    get_video_transcript.get_transcripts_and_add_to_db(youtuber, connection = conn)
