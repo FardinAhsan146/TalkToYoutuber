@@ -31,3 +31,5 @@ This project is designed to be maximally portable and easy to run.
 1. Install dependencies. You can use the `requirements.txt` this will install ALL of the dependencies. There will be a few additional ones that are a result of the tooling I used to develop, you might not need those. Else you can install the afforementioned YouTube API wrappers and chromaDB. 
 2. Create a `.env` file in the `/llm` directory and populate it with your `OPENAI_API_KEY`. 
 3. Run the `main.py` file. That's it really. 
+
+More instructions coming soon.
