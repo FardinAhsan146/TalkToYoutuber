@@ -91,6 +91,25 @@ def update_video_transcript(conn: Connection, video_id: str, video_transcript: s
     except sqlite3.Error as e:
         print(e)
 
+def get_videos_by_channel(conn: Connection, channel_name: str) -> Optional[list]:
+    """Get all video content for a given channel name."""
+    select_sql = '''
+    SELECT * FROM video_contents WHERE channel_name = ?;
+    '''
+    try:
+        cursor = conn.cursor()
+        cursor.execute(select_sql, (channel_name,))
+        rows = cursor.fetchall()
+
+        if rows:
+            return rows
+        else:
+            print(f"No videos found for channel '{channel_name}'.")
+            return None
+    except sqlite3.Error as e:
+        print(e)
+        return None
+
 if __name__ == '__main__':
     db_name: str = 'sqlite/talk_to_youtuber_db.sqlite'
 

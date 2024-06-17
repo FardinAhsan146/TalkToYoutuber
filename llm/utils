@@ -54,6 +54,8 @@ def chat_with_gpt() -> None:
     
     Need to rework this with RAG and chroma
 
+    TODO: Integrate with chroma and RAG
+
     """
     messages = [{"role": "system","content": "You are a helpful assistant."},{"role": "assistant","content": "Hello!"}]
 
