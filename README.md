@@ -7,7 +7,7 @@ For the LLM part I will just use openai embeddings and `gpt4-o`.
 
 This produce a chatbot with the knowledge of a given youtuber and I can talk and ask questions. 
 
-This project prioritizes simplicity and ease of development over all else. I should be able to finish it in 2-3 days. The choice of packages and architecture is primarily geared for that. If the project ever grows to something larger than I will use personally, it will require a significant refactor. 
+This project prioritizes simplicity and ease of development over all else. I should be able to finish it in 2-3 days. The choice of packages and architecture is primarily geared for that. If the project ever grows to something larger than I will use personally, it will require a significant refactor. I also won't using LangChain or LLaMaindex or any other LLM application framework. They are text processing interfaces for the most part and for a project of this size, it makes more sense to just code up the llm utils from the ground up. Not to mention that keeps the code less coupled (llm frameworks have utils for almost everything and it doesn't make sense to use only parts of them) and helps with portability. 
 
 # Databases
 * [Sqlite3](https://sqlite.org/) : For storing app data. Anything more is overkill. 
