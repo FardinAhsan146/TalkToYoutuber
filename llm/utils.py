@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 load_dotenv() 
 
 API_KEY = os.environ['OPENAI_API_KEY']
-
 with open('CONFIG.json') as f:
     CONFIG = json.load(f)
 
@@ -44,18 +43,14 @@ def get_openai_chat(message_list:list) -> str:
         "model": CONFIG["LANGUAGE_MODEL"],
         "messages": message_list
     }
-
     response = requests.post(api_url, headers=headers, data=json.dumps(data))
     return response.json()['choices'][0]['message']['content']
 
 
 def chat_with_gpt() -> None:
     """
-    
     Need to rework this with RAG and chroma
-
     TODO: Integrate with chroma and RAG
-
     """
     messages = [{"role": "system","content": "You are a helpful assistant."},{"role": "assistant","content": "Hello!"}]
 

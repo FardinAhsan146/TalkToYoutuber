@@ -1,5 +1,5 @@
 {
     "EMBEDDING_MODEL": "text-embedding-3-large",
-    "LANGUAGE_MODEL": "gpt4-o",
-    "EMBEDDING_DIMENSIONS": 3012
+    "LANGUAGE_MODEL": "gpt-4o",
+    "EMBEDDING_DIMENSIONS": 3072
 }
