@@ -9,10 +9,9 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 sys.path.append(parent_dir)
 
-from sqlite.database_utils import insert_initial_row, create_connection
-connection = create_connection()
+from database.database_utils import insert_initial_row, create_connection
 
-def get_videos(channel_name: str) -> List[str]:
+def get_videos(channel_name: str, connection = create_connection()) -> List[str]:
     """
     Refer to documentation for main fetch method: https://scrapetube.readthedocs.io/en/latest/
     Honestly, keeping the generator in memory is not feasible for channels that have a large number of videos.
