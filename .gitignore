@@ -2,6 +2,14 @@
 **/**.sqlite
 **/**.ipynb 
 __pycache__/
-chroma/**  # Ignore everything in the chroma directory
-!.py # Except .py files inside the chroma directory
+
+# Ignore everything in the chroma directory
+chroma/*
+
+# Except .gitignore itself (optional if you need it inside chroma)
+!chroma/.gitignore
+
+# Specifically do not ignore .py files in chroma directory
+!chroma/*.py
+
  
