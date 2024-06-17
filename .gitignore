@@ -1,3 +1,4 @@
 **/**.env
 **/**.sqlite
+**/**.ipynb 
 __pycache__/

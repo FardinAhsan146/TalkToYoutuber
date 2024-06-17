@@ -13,7 +13,10 @@ This project prioritizes simplicity and ease of development over all else. I sho
 * [Sqlite3](https://sqlite.org/) : For storing app data. Anything more is overkill. 
 * [ChromaDB](https://www.trychroma.com/) : A simple enough vector DB for the job. I really wanted to use a vector extension for sqlite but the main one is still in development and I don't want to handle changes to api continously. Chroma is simple, works on windows and gets the job done. Something like postgres with pgvector would have allowed me to get away with one database but its overkill for the volume of data. This combination of databases makes the project significantly more portable. 
 
-# Packages used 
+# Youtube API 
+
+You don't need credentials! 
+
 I might probably have to refactor these to use the Youtube API in the future anyways to not have to depend on two different dependencies and make the code more extensible and legible. However, these are simple enough wrappers that don't need any credientials and abstract away the rough edges of Googles APIs which tend to be quite tedious to work with even for seemingly simple functionality.  
 
 * [scrapetube](https://scrapetube.readthedocs.io/en/latest/) : Get youtube video data with Youtube API 
