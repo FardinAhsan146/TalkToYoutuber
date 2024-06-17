@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv() 
 
 API_KEY = os.environ['OPENAI_API_KEY']
-with open('CONFIG.json', 'r') as f:
+with open('llm/CONFIG.json', 'r') as f:
     CONFIG = json.load(f)
 
 def get_embedding(text_input:str) -> List[float]:

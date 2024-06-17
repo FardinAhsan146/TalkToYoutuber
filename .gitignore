@@ -3,4 +3,8 @@
 **/**.ipynb 
 __pycache__/
 
+# Ignore everything in the chroma directory
+chroma/*
 
+# Unignore .py files in the chroma directory
+!chroma/*.py
