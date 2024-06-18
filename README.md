@@ -31,8 +31,13 @@ This project is designed to be maximally portable and easy to run.
 1. Install dependencies. You can use the `requirements.txt` this will install ALL of the dependencies. There will be a few additional ones that are a result of the tooling I used to develop, you might not need those. Else you can install the afforementioned YouTube API wrappers and chromaDB. 
 2. Create a `.env` file in the `/llm` directory and populate it with your `OPENAI_API_KEY`. 
 3. Run the `main.py` file. That's it really. 
+4. If you want to nuke the databases you can run the `clean_databases.ps1` script. Converting it to bash is trivial as well. Just delete the sqlite file and the chroma directory. 
 
 More instructions coming soon.
+
+# Immediate attention 
+
+* I need to add in a chunking mechanism. OpenAI embeddings take a max of 8k tokens. Currently I just truncate the transcripts to 30k characters (~6-7k tokens). This is naive and probably misses good context. 
 
 # Future
 
