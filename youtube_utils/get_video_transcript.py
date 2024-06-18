@@ -2,7 +2,6 @@ import os
 import sys
 from sqlite3 import Connection
 import youtube_transcript_api 
-import concurrent.futures
 from tqdm import tqdm 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
