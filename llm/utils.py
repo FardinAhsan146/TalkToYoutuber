@@ -49,8 +49,7 @@ def get_openai_chat(message_list:list) -> str:
 
 def chat_with_gpt() -> None:
     """
-    Need to rework this with RAG and chroma
-    TODO: Integrate with chroma and RAG
+    Chat with GPT crude logic 
     """
     messages = [{"role": "system","content": "You are a helpful assistant."},{"role": "assistant","content": "Hello!"}]
 

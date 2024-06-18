@@ -4,10 +4,12 @@ from tqdm import tqdm
 import warnings
 warnings.filterwarnings("ignore")
 
-import llm 
+from llm import utils as llm_utils
+from llm import llm_config 
 from database import database_utils
 from youtube_utils import get_video_ids, get_video_transcript
 from chroma_utils import chroma_embedding_wrapper 
+from utils import clean_chroma_query_most_similar_document as clean 
 
 if __name__ == '__main__':
     """ 
@@ -58,9 +60,37 @@ if __name__ == '__main__':
     print("Adding video transcripts to the Vector Database. These will be embedded, so this will take a while...")
     collection.add(
         ids = send_ids,
-        documents = send_documents
+        documents = send_documents,
+        metadatas=[{"channel_name": youtuber}] * len(send_ids)
     )
     print("Done! You can now talk to the youtuber by entering your query.")
 
     # TODO 
     # Add in the chat with RAG 
+    messages = llm_config.messages
+    while True: 
+        user_input = input("User: ")
+
+        # RAG Logic 
+        if '??' in user_input:
+            # Query chroma with users question 
+            matched_document = collection.query(
+                                    query_texts=[user_input], 
+                                    n_results=1 ,
+                                    where={"channel_name": youtuber}
+                                )
+            results = clean.clean_chroma_query_most_similar_document(matched_document)
+            result_video = f"https://www.youtube.com/watch?v={results['id']}"
+            result_document = results['document']
+            
+            print(f"\n\n Intercepting query with additional contet:\n\nContext is\m {result_document}\n\n") 
+
+            user_input += "\nSome additional context"
+            user_input += "result_document"
+            user_input += "---------------------"
+
+        messages.append({'role':'user','content':user_input})
+        result = llm_utils.get_openai_chat(messages)
+        print(f"Bot: {result}")
+        messages.append({'role':'assistant','content':result})
+        
