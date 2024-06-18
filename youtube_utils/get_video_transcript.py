@@ -7,7 +7,7 @@ from tqdm import tqdm
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 sys.path.append(parent_dir)
-from database.database_utils import update_video_transcript, create_connection, get_videos_by_channel, check_transcript_attempted
+from database.database_utils import update_video_transcript, get_videos_by_channel, check_transcript_attempted
 
 def get_video_transcript(video_id: str) -> str | None:
     """
@@ -29,7 +29,7 @@ def get_transcripts_and_add_to_db(channel_name:str, connection: Connection):
     We need to ge the transcripts and populate the local store  
     """
     print(f"Getting transcripts for {channel_name}...")
-    all_videos = get_videos_by_channel(connection, channel_name = channel_name)
+    all_videos = get_videos_by_channel(connection, channel_name)
     for video in tqdm(all_videos):
         video_id = video.video_id 
 
