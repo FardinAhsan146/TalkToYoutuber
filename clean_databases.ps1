@@ -7,3 +7,4 @@ Remove-Item -Recurse -Force .\chroma\
 # Remove the talk_to_youtuber_db.sqlite file
 cd database
 rm talk_to_youtuber_db.sqlite
+cd ..

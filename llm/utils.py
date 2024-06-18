@@ -28,7 +28,10 @@ def get_embedding(text_input:str) -> List[float]:
     
     # Get response and return the relevant parts only
     response = requests.post(url, headers=headers, json=data)
-    return response.json()['data'][0]['embedding']
+    try:
+        return response.json()['data'][0]['embedding']
+    except KeyError:
+        return None
 
 def get_openai_chat(message_list:list) -> str:
     """
