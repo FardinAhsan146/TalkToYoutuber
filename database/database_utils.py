@@ -2,7 +2,7 @@ import sqlite3
 from sqlite3 import Connection
 from typing import Optional
 
-from video_content import VideoContent
+from .video_content import VideoContent
 
 def create_connection(db_name: str = 'talk_to_youtuber_db.sqlite') -> Optional[Connection]:
     """Create a database connection to the SQLite database specified by db_name."""
