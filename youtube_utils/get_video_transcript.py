@@ -22,6 +22,8 @@ def get_video_transcript(video_id: str) -> str | None:
         return text 
     except youtube_transcript_api._errors.TranscriptsDisabled:
         return None
+    except youtube_transcript_api._errors.NoTranscriptFound:
+        return None 
 
 def get_transcripts_and_add_to_db(channel_name:str, connection: Connection):
     """
