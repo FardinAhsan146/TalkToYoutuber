@@ -136,7 +136,7 @@ def get_videos_by_channel(conn: Connection, channel_name: str) -> Optional[list]
         cursor = conn.cursor()
         cursor.execute(select_sql, (channel_name,))
         rows = cursor.fetchall()
-        rwos = [VideoContent(*row) for row in rows]
+        rows = [VideoContent(*row) for row in rows]
 
         if rows:
             return rows

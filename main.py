@@ -10,6 +10,11 @@ from youtube_utils import get_video_ids, get_video_transcript
 from chroma_utils import chroma_embedding_wrapper 
 
 if __name__ == '__main__':
+    """ 
+    This is the main flow of the script. 
+    What you essentially see happen in the CLI and the main application logic is all here.    
+    """
+
     print("Hey Welcome to Talk to Youtuber")
     youtuber = input("Enter the name of the youtuber you want to talk to: ")
     print(f"Downloading data for {youtuber}...")
