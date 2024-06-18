@@ -2,6 +2,8 @@ import sqlite3
 from sqlite3 import Connection
 from typing import Optional
 
+from video_content import VideoContent
+
 def create_connection(db_name: str = 'talk_to_youtuber_db.sqlite') -> Optional[Connection]:
     """Create a database connection to the SQLite database specified by db_name."""
     conn: Optional[Connection] = None
@@ -74,8 +76,6 @@ def update_video_transcript(conn: Connection, video_id: str, video_transcript: s
     UPDATE video_contents 
     SET video_transcript = ?, transcript_attempted = TRUE
     WHERE video_id = ?;
-
-    TODO: ADD ATTEMPTED TRANSCRIPT field 
     '''
     try:
         cursor = conn.cursor()
@@ -136,6 +136,7 @@ def get_videos_by_channel(conn: Connection, channel_name: str) -> Optional[list]
         cursor = conn.cursor()
         cursor.execute(select_sql, (channel_name,))
         rows = cursor.fetchall()
+        rwos = [VideoContent(*row) for row in rows]
 
         if rows:
             return rows
