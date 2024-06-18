@@ -33,7 +33,7 @@ def get_transcripts_and_add_to_db(channel_name:str, connection: Connection):
         video_id = video[1] # video ID field 
 
         # This should save us some time 
-        if check_transcript_attempted(video_id):
+        if check_transcript_attempted(connection, video_id):
             continue 
 
         transcript = get_video_transcript(video_id)
