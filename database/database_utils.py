@@ -19,7 +19,8 @@ def create_table(conn: Connection) -> None:
         channel_name TEXT NOT NULL,
         video_id TEXT NOT NULL,
         video_title TEXT,
-        video_transcript TEXT
+        video_transcript TEXT,
+        transcript_attempted BOOLEAN DEFAULT FALSE
     );
     '''
     try:
@@ -71,8 +72,10 @@ def update_video_transcript(conn: Connection, video_id: str, video_transcript: s
     from sqlite3 import Error
     update_sql = '''
     UPDATE video_contents 
-    SET video_transcript = ? 
+    SET video_transcript = ?, transcript_attempted = TRUE
     WHERE video_id = ?;
+
+    TODO: ADD ATTEMPTED TRANSCRIPT field 
     '''
     try:
         cursor = conn.cursor()
@@ -92,6 +95,36 @@ def update_video_transcript(conn: Connection, video_id: str, video_transcript: s
         else:
             print(f"Video ID '{video_id}' does not exist. No update made.")
     except Error as e:
+        print(e)
+
+def check_transcript_attempted(conn: Connection, video_id: str) -> bool:
+    """Check if transcript was attempted for a given video_id."""
+    check_sql = '''
+    SELECT transcript_attempted FROM video_contents WHERE video_id = ?;
+    '''
+    try:
+        cursor = conn.cursor()
+        cursor.execute(check_sql, (video_id,))
+        row = cursor.fetchone()
+        if row:
+            return row[0] == 1  # Check for True (BOOLEAN)
+        return False
+    except sqlite3.Error as e:
+        print(e)
+        return False
+
+def reset_transcript_attempted(conn: Connection, video_id: str) -> None:
+    """Reset the transcript_attempted to False for a given video_id."""
+    update_sql = '''
+    UPDATE video_contents 
+    SET transcript_attempted = FALSE 
+    WHERE video_id = ?;
+    '''
+    try:
+        cursor = conn.cursor()
+        cursor.execute(update_sql, (video_id,))
+        conn.commit()
+    except sqlite3.Error as e:
         print(e)
 
 def get_videos_by_channel(conn: Connection, channel_name: str) -> Optional[list]:
