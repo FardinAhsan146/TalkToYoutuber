@@ -30,7 +30,7 @@ def get_transcripts_and_add_to_db(channel_name:str, connection: Connection):
     print(f"Getting transcripts for {channel_name}...")
     all_videos = get_videos_by_channel(connection, channel_name = channel_name)
     for video in tqdm(all_videos):
-        video_id = video.video_id # video ID field 
+        video_id = video.video_id 
 
         # This should save us some time 
         if check_transcript_attempted(connection, video_id):
