@@ -8,6 +8,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
 sys.path.append(parent_dir)
 from database.database_utils import update_video_transcript, get_videos_by_channel, check_transcript_attempted
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def get_video_transcript(video_id: str) -> str | None:
     """
@@ -26,19 +27,32 @@ def get_video_transcript(video_id: str) -> str | None:
 
 def get_transcripts_and_add_to_db(channel_name:str, connection: Connection):
     """
-    We need to ge the transcripts and populate the local store  
+    Get and store transcripts for all videos of a given channel concurrently.
     """
     print(f"Getting transcripts for {channel_name}...")
     all_videos = get_videos_by_channel(connection, channel_name)
-    for video in tqdm(all_videos):
-        video_id = video.video_id 
+    transcripts_dict = {}
 
-        # This should save us some time 
-        if check_transcript_attempted(connection, video_id):
-            continue 
+    # Prepare the list of videos to process
+    videos_to_process = []
 
-        transcript = get_video_transcript(video_id)
-        if transcript:
-            update_video_transcript(connection, video_id, transcript)
+    for video in all_videos:
+        video_id = video.video_id
+        if not check_transcript_attempted(connection, video_id):
+            videos_to_process.append(video_id)
+
+    # Multi thread this shit 
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        future_to_video_id = {executor.submit(get_video_transcript, video_id): video_id for video_id in videos_to_process}
+        for future in tqdm(as_completed(future_to_video_id), total=len(videos_to_process)):
+            video_id = future_to_video_id[future]
+            transcript = future.result()
+            if transcript:
+                transcripts_dict[video_id] = transcript
+
+    # Updating the database with the fetched transcripts
+    print("Adding transcripts to datbase.")
+    for video_id, transcript in tqdm(transcripts_dict.items()):
+        update_video_transcript(connection, video_id, transcript)
+
     print(f"Transcripts for {channel_name} have been updated.")
-

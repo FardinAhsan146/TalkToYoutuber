@@ -45,7 +45,6 @@ More instructions coming soon.
 # Immediate attention 
 
 * I need to add in a chunking mechanism. OpenAI embeddings take a max of 8k tokens. Currently I just truncate the transcripts to 30k characters (~6-7k tokens). This is naive and probably misses good context. 
-* I need to make the chroma vector insert and the video transcript fetcher faster. Ideally I can make them multi threaded, but getting that to work with database transactions is going to be a bit of a hassle. 
 
 # Future
 
