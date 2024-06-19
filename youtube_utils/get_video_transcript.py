@@ -42,7 +42,7 @@ def get_transcripts_and_add_to_db(channel_name:str, connection: Connection):
             videos_to_process.append(video_id)
 
     # Multi thread this shit 
-    with ThreadPoolExecutor(max_workers=8) as executor:
+    with ThreadPoolExecutor(max_workers=None) as executor:
         future_to_video_id = {executor.submit(get_video_transcript, video_id): video_id for video_id in videos_to_process}
         for future in tqdm(as_completed(future_to_video_id), total=len(videos_to_process)):
             video_id = future_to_video_id[future]
