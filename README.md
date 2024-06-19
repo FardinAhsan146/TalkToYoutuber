@@ -1,6 +1,6 @@
 # Talk To Youtuber
 
-STATUS: WORKS !! Video demo coming soon.
+![gif](https://github.com/FardinAhsan146/TalkToYoutuber/blob/master/docs/talk_to_youtuber-Trim-Trimonline-video-cutter.com-ezgif.com-video-to-gif-converter.gif)
 
 There's a youtuber whose videos I quite like named [japaneat](https://www.youtube.com/@japaneat). I'm going to visit Japan soon and I want to know what his reccomended (suchi, karage, ramen, udon, ...) restaurants are. However, its not like he has a nicely labelled and curated blog or Wiki. Everything he ever said is scrattered among YouTube shorts. 
 
