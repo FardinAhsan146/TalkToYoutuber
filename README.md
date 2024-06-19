@@ -37,7 +37,7 @@ This project is designed to be maximally portable and easy to run.
 1. Install dependencies. You can use the `requirements.txt` this will install ALL of the dependencies. There will be a few additional ones that are a result of the tooling I used to develop, you might not need those. Else you can install the afforementioned YouTube API wrappers and chromaDB. 
 2. Create a `.env` file in the `/llm` directory and populate it with your `OPENAI_API_KEY`. 
 3. Run the `main.py` file. That's it really. 
-4. The script will ask you for which youtubers you want to talk to. Just type in the youtubers name. Make sure its EXACTLY like it is in their channel. It will download their videos and once done, you can talk to GPT with their video transcripts semantically injected into the context of the video. 
+4. The script will ask you for which youtubers you want to talk to. Just type in the youtubers name. Make sure its EXACTLY like it is in their channel (look at the channel URL). It will download their videos and once done, you can talk to GPT with their video transcripts semantically injected into the context of the video. 
 5. If you want to nuke the databases you can run the `clean_databases.ps1` script. Converting it to bash is trivial as well. Just delete the sqlite file and the chroma directory. You probably won't have to do this, unless your db gets currupted in some way. 
 
 More instructions coming soon.
