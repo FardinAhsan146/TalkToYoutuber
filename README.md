@@ -46,10 +46,11 @@ More instructions coming soon.
 
 # Immediate attention 
 
-* I need to add in a chunking mechanism. OpenAI embeddings take a max of 8k tokens. Currently I just truncate the transcripts to 30k characters (~6-7k tokens). This is naive and probably misses good context. 
+None ATM. Project is pretty stable, clean and optimized. 
 
 # Future
 
 * I want to refactor the code and make it database, api and interface agnostic for the most part. 
 * I want to add in fuzz and regression testing.
 * I want to add a feature where the user can pass in query params to the vector db in their message. This will allow for even better context fetching. For example, I might what to know japaneats favorite sushi restaurant in Tokyo. The match might not be a restaurant in tokyo. I can pass in a query param like `{"$includes":"tokyo"}` so I get context that has certain keywords. This will be a nice to have, but I will do this after I handle the major performance improvements.
+* Switch out chat model for 'Claude 3.5 Sonnet' - I think it will be better than gpt4o.
