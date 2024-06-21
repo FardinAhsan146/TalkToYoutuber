@@ -18,7 +18,7 @@ def process_video(video_data, collection, youtuber):
     chunks = utils.chunk_text(full_text)
     
     for i, chunk in enumerate(chunks):
-        chunk_id = f"{video_data.video_id}_{i}" # natural key
+        chunk_id = f"{video_data.video_id}|{i}" # natural key
         collection.add(
             ids=[chunk_id],
             documents=[chunk],
@@ -62,13 +62,14 @@ if __name__ == '__main__':
                                                  embedding_function=chroma_embedding_wrapper.openai_ef)
 
     # Check if videos exist in the connection 
-    collection_ids = collection.get()['ids']
+    # Get video id from natural key 
+    collection_ids = [id.split('|')[0] for id in collection.get()['ids']]
 
     # Non overlaps 
     # Keep only videos that are not already in the collection 
-    non_overlapping_videos = [video_data for video_data in all_videos if video_data.video_id not in collection_ids]
+    non_overlapping_videos = [video_data for video_data in all_videos if f"{video_data.video_id}" not in collection_ids]
 
-    with ThreadPoolExecutor() as executor:
+    with ThreadPoolExecutor(max_workers=100) as executor:
         futures = []
         for video_data in non_overlapping_videos:
             future = executor.submit(process_video, video_data, collection, youtuber)

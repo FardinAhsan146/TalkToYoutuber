@@ -52,7 +52,7 @@ def print_intercepting_message(content: str, video_id: str, video_title: str) ->
 Interceptting your query with additional context from the video.
 
 >> {video_title} << 
-You can find the video at: https://www.youtube.com/watch?v={video_id.split('_')[0]}
+You can find the video at: https://www.youtube.com/watch?v={video_id}
 
 Context is: 
 {content}

@@ -14,7 +14,7 @@ def clean_chroma_query_most_similar_document(query_results: dict) -> dict:
 
 
     document = documents[0]
-    video_id = query_results['ids'][0][0].split('_')[0]
+    video_id = query_results['ids'][0][0].split('|')[0]
     title = metadatas[0]['title']
 
     # Create a dictionary with 'document' and 'id'
