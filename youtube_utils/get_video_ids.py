@@ -19,22 +19,17 @@ def get_videos(channel_name: str, connection : Connection) -> List[str]:
     We should just write into the sqlite table. Its easy to query from the CLI anyways.
     """
     videos = scrapetube.get_channel(channel_username = channel_name)
-    print(f"Starting to fetch video details for channel '{channel_name}'...")
-    for video in tqdm(videos):
+    for video in tqdm(videos, desc = f"Fetching videos for channel '{channel_name}'"):
         video_id = video['videoId'] # https://www.youtube.com/watch?v=<video_id>
         video_title = video['title']['runs'][0]['text']
         # Insert the video_id into the database
         insert_initial_row(connection, channel_name, video_id, video_title)
-    print(f"Finished fetching video details for channel '{channel_name}'.")
 
-
-    print(f"Starting to fetch shorts details for channel '{channel_name}'...")
     shorts = scrapetube.get_channel(channel_username = channel_name, content_type = 'shorts')
-    for short in tqdm(shorts):
+    for short in tqdm(shorts, desc = f"Fetching shorts for channel '{channel_name}'"):
         video_id = short['videoId']
         video_title = short['headline']['simpleText']
         # Insert the video_id into the database
         insert_initial_row(connection, channel_name, video_id, video_title)
-    print(f"Finished fetching shorts details for channel '{channel_name}'.")
 
     

@@ -61,7 +61,7 @@ def insert_initial_row(conn: Connection, channel_name: str, video_id: str, video
         exists = cursor.fetchone()
         
         if exists:
-            print(f"Video ID '{video_id}' already exists. No new row inserted.")
+            pass
         else:
             # Proceed with insertion
             cursor.execute(insert_sql, (channel_name, video_id, video_title))

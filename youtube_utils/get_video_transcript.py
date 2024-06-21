@@ -29,7 +29,6 @@ def get_transcripts_and_add_to_db(channel_name:str, connection: Connection):
     """
     Get and store transcripts for all videos of a given channel concurrently.
     """
-    print(f"Getting transcripts for {channel_name}...")
     all_videos = get_videos_by_channel(connection, channel_name)
     transcripts_dict = {}
 
@@ -44,15 +43,12 @@ def get_transcripts_and_add_to_db(channel_name:str, connection: Connection):
     # Multi thread this shit 
     with ThreadPoolExecutor(max_workers=None) as executor:
         future_to_video_id = {executor.submit(get_video_transcript, video_id): video_id for video_id in videos_to_process}
-        for future in tqdm(as_completed(future_to_video_id), total=len(videos_to_process)):
+        for future in tqdm(as_completed(future_to_video_id), total=len(videos_to_process), desc = f"Downloading transcripts for {channel_name}."):
             video_id = future_to_video_id[future]
             transcript = future.result()
             if transcript:
                 transcripts_dict[video_id] = transcript
 
     # Updating the database with the fetched transcripts
-    print("Adding transcripts to datbase.")
-    for video_id, transcript in tqdm(transcripts_dict.items()):
+    for video_id, transcript in transcripts_dict.items():
         update_video_transcript(connection, video_id, transcript)
-
-    print(f"Transcripts for {channel_name} have been updated.")

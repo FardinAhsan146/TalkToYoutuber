@@ -10,18 +10,22 @@ def clean_chroma_query_most_similar_document(query_results: dict) -> dict:
     """
     distances = query_results['distances'][0]
     documents = query_results['documents'][0]
-    ids = query_results['ids'][0]
+    metadatas = query_results['metadatas'][0]
 
-    # Create a list of tuples (id, document, distance)
-    results = list(zip(ids, documents, distances))
 
-    # Get the most similar document (minimum distance)
-    most_similar_result = min(results, key=lambda x: x[2])
+    document = documents[0]
+    video_id = query_results['ids'][0][0].split('_')[0]
+    title = metadatas[0]['title']
 
     # Create a dictionary with 'document' and 'id'
     most_similar_document = {
-        'id': most_similar_result[0],
-        'document': most_similar_result[1]
+        'id':video_id,
+        'document': document,
+        'title': title
     }
 
     return most_similar_document
+
+def chunk_text(text, chunk_size=1000):
+    words = text.split()
+    return [' '.join(words[i:i+chunk_size]) for i in range(0, len(words), chunk_size)]
