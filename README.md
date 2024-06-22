@@ -4,6 +4,8 @@
 
 [Video Demo/Initialization](https://www.youtube.com/watch?v=pXZzIsO9ZGA)
 
+*The app works much faster than the demo, I've optimized it since I've recorded the gif and video* 
+
 There's a youtuber whose videos I quite like named [japaneat](https://www.youtube.com/@japaneat). I'm going to visit Japan soon and I want to know what his reccomended (suchi, karage, ramen, udon, ...) restaurants are. However, its not like he has a nicely labelled and curated blog or Wiki. Everything he ever said is scrattered among YouTube shorts.
 
 So why not download all of his videos, add it to a database and semantic search it, and hook that up to an LLM as well? 
