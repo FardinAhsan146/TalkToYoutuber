@@ -146,6 +146,20 @@ def get_videos_by_channel(conn: Connection, channel_name: str) -> Optional[list]
     except sqlite3.Error as e:
         print(e)
         return None
+    
+def video_exists(conn: Connection, video_id: str) -> bool:
+    """Check if a video with the given video_id exists in the video_contents table."""
+    check_sql = '''
+    SELECT 1 FROM video_contents WHERE video_id = ? LIMIT 1;
+    '''
+    try:
+        cursor = conn.cursor()
+        cursor.execute(check_sql, (video_id,))
+        result = cursor.fetchone()
+        return result is not None
+    except sqlite3.Error as e:
+        print(f"Error checking video existence: {e}")
+        return False
 
 if __name__ == '__main__':
     # db_name: str = 'talk_to_youtuber_db.sqlite'

@@ -1,5 +1,5 @@
 # This script helps me during development to just nuke the two databases and start from scratch 
-# .\clean_databases.ps1
+# .\scripts\clean_databases.ps1
 
 # Remove the chroma directory
 Remove-Item -Recurse -Force .\chroma\
